@@ -1,0 +1,39 @@
+<li>
+    <article class="post">
+        <h3 class="post-title">
+            <%= post.title %>
+        </h3>
+        <div class="post-info"> <span>
+                <%= post.author %>
+            </span> <span>
+                <%= post.category %>
+            </span><span>
+                <%= post.data %>
+            </span> </div>
+        <div class="post-previw">
+            <img src="<%= post.img %>" alt="">
+            <%- post.text %>
+        </div>
+
+
+
+        <div class="post-details">
+            <div>
+               <a href="/post/<%= post.id %>">continua</a> 
+            </div>
+            <div class="post-share"></div>
+            <div class="post-tags">
+                <div class="#tag">
+                    tag1
+                </div>
+                <div class="#tag">
+                    tag2
+                </div>
+            </div>
+            <div>
+                commenti
+            </div>
+        </div>
+
+    </article>
+</li>

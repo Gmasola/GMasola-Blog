@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/css.css">
+    <title>
+        <%= general.title %>
+    </title>
+
+</head>
+
+
+<body>
+    <div id="warper">
+
+        <%- include('template/header', {title: general.title, description: general.description, logo: general.logo }) %>
+            <%- include('template/nav', {categories: categories}) %>
+
+
+
+                <div id="user-bar"></div>
+                <div id="main-warp">
+                    <main>
+                        <ul>
+                            <article class="post">
+                                <h3 class="post-title">
+                                    <%= post.title %>
+                                </h3>
+                                <div class="post-info"> <span>
+                                        <%= post.author %>
+                                    </span> <span>
+                                        <%= post.category %>
+                                    </span><span>
+                                        <%= post.data %>
+                                    </span> </div>
+                                <div class="post-previw">                                  
+                                    <%- post.text %>
+                                </div>                                          
+                            </article>
+                        </ul>
+                        
+                    </main>
+                </div>
+                <%- include('template/footer') %>
+    </div>
+
+
+
+
+
+</body>
+
+</html>

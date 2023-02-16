@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/css.css">
+    <title>
+        <%= general.title %>
+    </title>
+
+</head>
+
+
+<body>
+    <div id="warper">
+
+        <%- include('../template/header', {title: general.title, description: general.description, logo: general.logo }) %>
+  
+
+
+
+                <div id="user-bar"></div>
+                <div id="main-warp">
+                    <aside>
+                        <ul>
+                            <%- include('../template/admNav') %>
+                      
+                        </ul>
+                    </aside>
+
+                    <main>
+                        <h2>
+                            Users
+                        </h2>
+                         
+                        <div div="post_list">
+                            <% users.forEach(function(user) { %>
+                                <li id= "posts_admin_menù">
+                                    <span><%= user.username %></span>
+                                    <span><%= user.email %> </span>
+                                    <a href="/admin/user/edit/<%= user._id %>"> <img src="/images/edit.png" alt="edit"></a>
+                                    <a href="/admin/user/delete/<%= user._id %>"> <img src="/images/cancel.png" alt="delete"></a>
+                                    <a href="/admin/user/disable/<%= user._id %>"> <img src="/images/disable.png" alt="delete"></a>  
+                                </li>
+                            <% }); %>
+                        </div>
+                        
+                        
+                        
+                    </main>
+
+                    
+                </div>
+                <%- include('../template/footer') %>
+    </div>
+
+
+
+
+
+</body>
+
+</html>

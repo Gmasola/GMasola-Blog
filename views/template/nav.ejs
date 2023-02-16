@@ -1,0 +1,17 @@
+<nav>
+    <ul id="nav-menù">
+        <li><a href="/"><img src="/images/home.png" alt="" id="img-home"></a>
+        </li>
+        <li> <a href="/archive">Archivio</a></li>
+        <li id="nav-categories">
+            Categories
+            <ul>
+              <% categories.forEach(function(cat) { %>
+                <li><a href="/category/<%= cat %>"></a><%= cat %></li>
+            <% }); %>
+            </ul>
+        </li>
+        <li> <a href="/contacts">Contacts</a></li>
+        <li>search</li>
+    </ul>
+</nav>

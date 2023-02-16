@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/css.css">
+    <title>
+        <%= general.title %>
+    </title>
+<!-- include libraries(jQuery, bootstrap) -->
+<script type="text/javascript" src="//code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" />
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- include summernote css/js-->
+<link href="/summernote/summernote-bs4.css" rel="stylesheet">
+<script src="/summernote/summernote-bs4.js"></script>
+</head>
+
+
+<body>
+    <div id="warper">
+
+        <%- include('../template/header', {title: general.title, description: general.description, logo: general.logo }) %>
+  
+
+
+
+                <div id="user-bar"></div>
+                <div id="main-warp">
+                    <aside>
+                        <ul>
+                            <%- include('../template/admNav') %>
+                            
+                        </ul>
+                    </aside>
+
+                    <main>
+                        <h2>
+                            Post
+                        </h2>
+                         
+                         <form action="/admin/posts/edit/<%= post.id %>" method="post">
+                             <input type="text" name="title" id="title" value="<%= post.title %>">
+                             <textarea id="summernote" name="body"><%= post.text %></textarea>
+                            <label for="categories"></label>
+                            <select name="category" id="category">
+                                <% categories.forEach(function(category) { %>
+                                    
+                                <option value="<%= category %>"><%= category %></option>
+                                <% }); %>
+                            </select>
+                            <select name="online">
+                                <option 
+                                <% if(post.online === true){ %>
+                                    selected 
+                                  <% } %>  
+                                value="Published">Published</option>
+
+                                <option <% if(post.online === false){ %>
+                                    selected 
+                                  <% } %>  
+                                 value="Unpublished">Unpublished</option>                               
+                            </select>
+                            <input type="submit" value="Salva">
+                            
+                      
+                        </form>
+                        
+                        
+                    </main>
+
+                    
+                </div>
+                <%- include('../template/footer') %>
+    </div>
+
+
+
+
+
+</body>
+
+</html>
+<script>
+    $(document).ready(function() {
+        $('#summernote').summernote();
+      });
+
+
+      
+    </script>

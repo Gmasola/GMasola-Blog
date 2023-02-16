@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/css.css">
+    <title>
+        <%= general.title %>
+    </title>
+
+</head>
+
+
+<body>
+    <div id="warper">
+
+        <%- include('../template/header', {title: general.title, description: general.description, logo: general.logo })
+            %>
+
+
+
+
+            <div id="user-bar"></div>
+            <div id="main-warp">
+                <aside>
+                    <%- include('../template/admNav') %>
+                        <ul>
+
+                        </ul>
+                </aside>
+
+                <main>
+                    <h2>
+                        Settings
+                    </h2>
+
+                    <form action="/admin/settings/" method="post" encType="multipart/form-data">
+                        <h3>General</h3>
+                        <label for="title"> Title</label>
+                        <input type="text" name="title" id="title" value="<%= general.title %>">
+                        <label for="description"> Description</label>
+                        <input type="description" name="description" id="description"
+                            value="<%= general.description %>">
+                        <label for="file">Logo</label>
+                        <input type="file" name="logo" >
+                        <h3>Posts</h3>
+                        <label for="PostForPage">Post for Page</label>
+                        <input type="text" name="PostForPage" id="PostForPage" value="<%= posts.postsForPage %>">
+
+                        <h3>Categories</h3>
+
+                        <label for="add">categories</label>
+
+                        <ul id="categories">
+                            <input type="text" name="add" id="category">
+                            <input type="button" value="Add" class="addCat">
+                            <% categories.forEach(function(cat) { %>
+
+                                <li id="<%= cat %>">- <%= cat %> <input type="hidden" name="categories"
+                                            value="<%= cat %>"> <img id="<%= cat %>" class="delete"
+                                            src="/images/cancel.png" alt=""></li>
+                                <% }); %>
+                        </ul>
+
+                        <input type="submit" value="Salva">
+                    </form>
+
+                </main>
+
+
+            </div>
+            <%- include('../template/footer') %>
+    </div>
+
+
+
+
+
+</body>
+
+</html>
+<script>
+    var categories = document.getElementById('categories')
+    categories.addEventListener('click', e => {
+                if (e.target.className === "delete") {
+            console.log(e.target.id)
+            var category = document.getElementById(e.target.id)
+            category.remove()
+        }
+
+
+        if (e.target.className === "addCat") {
+            var category = document.getElementById('category')
+            console.log(category.value)
+            if (category.value !== "") {
+                categories.innerHTML += `<li id="${category.value}">- ${category.value} <input type="hidden" name="categories" value="${category.value}"> <img id="${category.value}"  class="delete"src="/images/cancel.png" alt=""></li>`
+            }
+        }
+    })
+
+</script>
