@@ -19,7 +19,7 @@ var adminRouter = require('./routes/admin');
 const MongoStore = require('connect-mongo')(session);
 
 require('./config/passport');
-require('dotenv').config({ path: '/etc/secrets/.env' })
+require('dotenv').config()
 
 
 var app = express();
