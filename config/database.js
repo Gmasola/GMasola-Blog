@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-require('dotenv').config({ path: '/etc/secrets/.env' })
+require('dotenv').config()
 
 /**
  * -------------- DATABASE ----------------
