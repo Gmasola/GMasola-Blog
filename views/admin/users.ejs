@@ -34,7 +34,11 @@
                         <h2>
                             Users
                         </h2>
-                         
+                         New user: 
+                         <form method="post" action="/admin/newuser">
+                            Enter Username:<br><input type="text" name="uname">
+                            <br>Enter Password:<br><input type="password" name="pw">
+                            <br><br><input type="submit" value="Submit"></form>
                         <div div="post_list">
                             <% users.forEach(function(user) { %>
                                 <li id= "posts_admin_menù">

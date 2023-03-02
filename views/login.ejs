@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/css.css">
+    <title>
+        <%= general.title %>
+    </title>
+
+</head>
+
+
+<body>
+    <div id="warper">
+
+        <%- include('template/header', {title: general.title, description: general.description, logo: general.logo }) %>
+            <%- include('template/nav', {categories: categories}) %>
+
+
+
+                <div id="user-bar"></div>
+                <div id="main-warp">
+                    <main>
+                        <h1>Login Page</h1><form method="POST" action="/login">
+                            Enter Username:<br><input type="text" name="uname">
+                            <br>Enter Password:<br><input type="password" name="pw">
+                            <br><br><input type="submit" value="Submit"></form>
+                    </main>
+                </div>
+                <%- include('template/footer') %>
+    </div>
+
+
+
+
+
+</body>
+
+</html>

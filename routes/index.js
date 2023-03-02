@@ -69,27 +69,7 @@ router.get('/post/:id',  async function (req, res, next) {
 
 router.post('/login', passport.authenticate('local', { failureRedirect: '/login-failure', successRedirect: '/login-success' })); // autenticate chiama la verifyCallback in passport.js
 
-router.post('/register', (req, res, next) => {
-    console.log(req)
-    const saltHash = genPassword(req.body.pw);
 
-    const salt = saltHash.salt;
-    const hash = saltHash.hash;
-
-    const newUser = new User({
-        username: req.body.uname,
-        hash: hash,
-        salt: salt,
-        admin: true
-    });
-
-    newUser.save()
-        .then((user) => {
-            console.log(user);
-        });
-
-    res.redirect('/login');
-});
 
 /**
 * -------------- GET ROUTES ----------------
@@ -99,14 +79,11 @@ router.post('/register', (req, res, next) => {
 
 // When you visit http://localhost:3000/login, you will see "Login Page"
 router.get('/login', (req, res, next) => {
-
-    const form = '<h1>Login Page</h1><form method="POST" action="/login">\
-    Enter Username:<br><input type="text" name="uname">\
-    <br>Enter Password:<br><input type="password" name="pw">\
-    <br><br><input type="submit" value="Submit"></form>';
-
-    res.send(form);
-
+    var general =  res.locals.config.general
+    var categories = res.locals.config.categories
+    var page = {general, categories }     
+    res.render('login', page);
+    
 });
 
 // When you visit http://localhost:3000/register, you will see "Register Page"

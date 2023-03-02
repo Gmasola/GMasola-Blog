@@ -128,10 +128,10 @@ router.post('/settings', async (req, res, next) => {
 
 
 
-router.post('/admin/settings/addCategory', async (req, res, next) => {
-    Config.findOneAndUpdate({}, { $push:{ categories: req.body.add}})
-     res.redirect('/admin/settings');
-});
+//router.post('/admin/settings/addCategory', async (req, res, next) => {
+  //  Config.findOneAndUpdate({}, { $push:{ categories: req.body.add}})
+    // res.redirect('/admin/settings');
+//});
 //USERS
 
 router.get('/users', async function (req, res, next) {
@@ -145,6 +145,26 @@ router.get('/users', async function (req, res, next) {
 
 });
 
+router.post('/newuser', (req, res, next) => {
+    console.log(req)
+    const saltHash = genPassword(req.body.pw);
 
+    const salt = saltHash.salt;
+    const hash = saltHash.hash;
+
+    const newUser = new User({
+        username: req.body.uname,
+        hash: hash,
+        salt: salt,
+        admin: true
+    });
+
+    newUser.save()
+        .then((user) => {
+            console.log(user);
+        });
+
+    res.redirect('/login');
+});
 
 module.exports = router;
