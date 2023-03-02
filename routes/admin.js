@@ -109,27 +109,12 @@ router.get('/settings', async function (req, res, next) {
     res.render('admin/settings', res.locals.config);
 });
 
-router.get('/comments', async function (req, res, next) { });
-
-
-
 router.post('/settings', async (req, res, next) => {
   
-    let logoFile;
-    let uploadPath;
-    console.log(req.files)
-    logoFile = req.files.logo;
-    uploadPath = 'C:/Users/gmaso/OneDrive/Desktop/INFORMATICA/_PROGETTI/Simple blog/app/public/images/' + logoFile.name;
-
-    logoFile.mv(uploadPath, function(err) {
-        if (err)
-          return res.status(500).send(err);
-          });
     await Config.findOneAndUpdate({ _id: "616076ebc5f0079ec87453b1" }, {
         
         general: {
             title: req.body.title,
-            logo: "/images/logo.png",
             description: req.body.description
         },
         posts: {
@@ -145,9 +130,7 @@ router.post('/settings', async (req, res, next) => {
 
 router.post('/admin/settings/addCategory', async (req, res, next) => {
     Config.findOneAndUpdate({}, { $push:{ categories: req.body.add}})
-    
-
-    res.redirect('/admin/settings');
+     res.redirect('/admin/settings');
 });
 //USERS
 
