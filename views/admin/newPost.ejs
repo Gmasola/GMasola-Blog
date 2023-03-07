@@ -20,33 +20,15 @@
 </head>
 
 
-<body>
-    <div id="warper">
-
-        <%- include('../template/header', {title: general.title, description: general.description, logo: general.logo }) %>
-  
-
-
-
-                <div id="user-bar"></div>
-                <div id="main-warp">
-                    <aside>
-                        <ul>
-                            <%- include('../template/admNav') %>
-                            
-                        </ul>
-                    </aside>
-
-                    <main>
-                        <h2>
-                            Posts
-                        </h2>
-                         <a href="/admin/posts/new"><img id = "newpost" src="/images/new_post.png" alt="nuovo post"></a>
-                         <form action="/admin/posts/new/" method="post">
+<body id="body">
+        <%- include('../template/header', {title: general.title, description: general.description, logo: general.logo })
+            %>
+                <main>
+                        <%- include('../template/admNav') %>
+                            <form action="/admin/posts/new/" method="post">
                             <h3>Nuovo Post</h3>
                              <input type="text" name="title" id="title" value="Titolo">
                              <textarea id="summernote" name="body"></textarea>
-                            >
                             <input type="submit" value="Salva">
                             
                       
@@ -54,16 +36,7 @@
                         
                         
                     </main>
-
-                    
-                </div>
                 <%- include('../template/footer') %>
-    </div>
-
-
-
-
-
 </body>
 
 </html>

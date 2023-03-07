@@ -14,15 +14,9 @@
 
 
 <body>
-    <div id="warper">
-
         <%- include('template/header', {title: general.title, description: general.description, logo: general.logo }) %>
             <%- include('template/nav', {categories: categories}) %>
-
-
-
-                <div id="user-bar"></div>
-                <div id="main-warp">
+                
                     <main>
                         <ul>
                             <% postsInPage.forEach(function(post) { %>
@@ -32,27 +26,34 @@
                                     <% }); %>
                         </ul>
                         <ul class="pagination">
-                            <span> <a href="<%= pagination.firstPage %>"><%= pagination.firstPage %></a></span>
-                            <span><a href="<%= pagination.previusPage %>">Previus </a></span>
+                            <span> <a href="<%= pagination.firstPage %>">Inizio</a></span>
 
-                            <ul><% pagination.pages.forEach(function(page) { %>
-                                <li><a href="<%= page %>"><%= page %></a></li>
-                            <% }); %>
-                            </ul>
 
-                            <span> <a href="<%= pagination.nextPage %>">Next</a></span>
-                            <span> <a href="<%= pagination.lastPage %>"><%= pagination.lastPage %></a></span>
-                            
+                            <% if (pagination.currentPage> pagination.firstPage) { %>
+                                <span><a href="<%= pagination.previusPage %>">&#60; </a></span>
+                                <%} else { %>
+                                    <span></span>
+                                    <% } %>
+
+                                        <ul>
+                                            <% pagination.pages.forEach(function(page) { %>
+                                                <li><a href="<%= page %>">
+                                                        <%= page %>
+                                                    </a></li>
+                                                <% }); %>
+                                        </ul>
+
+                                        <% if (pagination.currentPage < pagination.lastPage) { %>
+                                            <span> <a href="<%= pagination.nextPage %>">&#62;</a></span>
+                                            <%} else { %>
+                                                <span></span>
+                                                <% } %>
+
+                                                    <span> <a href="<%= pagination.lastPage %>">Fine</a></span>
+
                         </ul>
                     </main>
-                </div>
-                <%- include('template/footer') %>
-    </div>
-
-
-
-
-
+               <%- include('template/footer') %>
 </body>
 
 </html>

@@ -14,29 +14,20 @@
 
 
 <body>
-    <div id="warper">
-
-        <%- include('template/header', {title: general.title, description: general.description, logo: general.logo }) %>
-            <%- include('template/nav', {categories: categories}) %>
-
-
-
-                <div id="user-bar"></div>
-                <div id="main-warp">
-                    <main>
-                        <h1>Login Page</h1><form method="POST" action="/login">
-                            Enter Username:<br><input type="text" name="uname">
-                            <br>Enter Password:<br><input type="password" name="pw">
-                            <br><br><input type="submit" value="Submit"></form>
-                    </main>
-                </div>
-                <%- include('template/footer') %>
-    </div>
-
-
-
-
-
+    <%- include('template/header', {title: general.title, description: general.description, logo: general.logo }) %>
+        <%- include('template/nav', {categories: categories}) %>
+            <div id="user-bar"></div>
+            <div id="main-warp">
+                <main>
+                    <h1>Login Page</h1>
+                    <form method="POST" action="/login">
+                        Enter Username:<br><input type="text" name="uname">
+                        <br>Enter Password:<br><input type="password" name="pw">
+                        <br><br><input type="submit" value="Submit">
+                    </form>
+                </main>
+            </div>
+            <%- include('template/footer') %>
 </body>
 
 </html>

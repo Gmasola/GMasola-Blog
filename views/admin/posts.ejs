@@ -9,73 +9,41 @@
     <title>
         <%= general.title %>
     </title>
-
 </head>
 
-
 <body>
-    <div id="warper">
-
-        <%- include('../template/header', {title: general.title, description: general.description, logo: general.logo }) %>
-  
-
-
-
-                <div id="user-bar"></div>
-                <div id="main-warp">
-                    <aside>
-                        <ul>
-                            <li> <a href="/admin/posts">POSTS</a></li> 
-                             <li> <a href="/admin/users">USERS</a></li> 
-                             <li> <a href="/admin/comments">COMMENTS</a></li> 
-                             <li> <a href="/admin/pages">PAGES</a></li> 
-                             <li> <a href="/admin/settings">SETTINGS</a></li> 
-                        </ul>
-                    </aside>
-
-                    <main>
-                        <h2>
-                            Posts
-                        </h2>
-                         <a href="/admin/posts/new"><img id = "newpost" src="/images/new_post.png" alt="nuovo post"></a>
-                        <div div="post_list">
+        <%- include('../template/header', {title: general.title, description: general.description, logo: general.logo })
+            %>
+        
+                <main>
+                    <%- include('../template/admNav') %>
+                        <h2> Posts</h2>
+                        <ul class="posts_list">
                             <% posts.forEach(function(post) { %>
-                                <li id= "posts_admin_menù">
-                                    <span><%= post.title %></span>
-                                    <span><%= post.data %> </span>
-                                    <span><%= post.category %></span> 
-                                    <a href="/admin/posts/edit/<%= post._id %>"> <img src="/images/edit.png" alt="edit"></a>
-                                    <a href="/admin/posts/delete/<%= post._id %>"> <img src="/images/cancel.png" alt="delete"></a> 
-                                    
-                                    <% if(post.online === true){ %>
+                                <li class="posts_admin_menù">
+                                    <div class="admPostTitle">
+                                        <%= post.title %>
+                                    </div>
+                                    <div class="admPostDate">
+                                        <%= post.data %>
+                                    </div>
+                                    <div class="admPostCategory">
+                                        <%= post.category %>
+                                    </div>
+                                    <div class="admPostedit"><a href="/admin/posts/edit/<%= post._id %>"> <img
+                                                src="/images/edit.png" alt="edit"></a></div>
+                                    <div class="admPostDelete"> <a href="/admin/posts/delete/<%= post._id %>"> <img
+                                                src="/images/cancel.png" alt="delete"></a> </div>
+                                    <% if(post.online===true){ %>
                                         <img src="/images/online.png" alt="online">
-                                      <% } %>  
-                                    
-    
-                                    <% if(post.online === false){ %>
-                                        <img src="/images/offline.png" alt="offline">
-                                      <% } %>  
-                                     
-                                    
-                                    
-                                    
+                                        <% } %>
+                                            <% if(post.online===false){ %>
+                                                <img src="/images/offline.png" alt="offline">
+                                                <% } %>
                                 </li>
-                            <% }); %>
-                        </div>
-                        
-                        
-                        
-                    </main>
-
-                    
-                </div>
-                <%- include('../template/footer') %>
-    </div>
-
-
-
-
-
-</body>
-
+                                <% }); %>
+                        </ul>
+                </main>
+            <%- include('../template/footer') %>
+ </body>
 </html>

@@ -14,28 +14,13 @@
 
 
 <body>
-    <div id="warper">
-
-        <%- include('../template/header', {title: general.title, description: general.description, logo: general.logo })
+ <%- include('../template/header', {title: general.title, description: general.description, logo: general.logo })
             %>
-
-
-
-
-            <div id="user-bar"></div>
-            <div id="main-warp">
-                <aside>
-                    <%- include('../template/admNav') %>
-                        <ul>
-
-                        </ul>
-                </aside>
-
-                <main>
+                   <main>                  
+                        <%- include('../template/admNav') %>
                     <h2>
                         Settings
                     </h2>
-
                     <form action="/admin/settings/" method="post" encType="multipart/form-data">
                         <h3>General</h3>
                         <label for="title"> Title</label>
@@ -67,16 +52,7 @@
                     </form>
 
                 </main>
-
-
-            </div>
             <%- include('../template/footer') %>
-    </div>
-
-
-
-
-
 </body>
 
 </html>

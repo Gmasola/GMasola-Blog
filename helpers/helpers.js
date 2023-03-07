@@ -8,7 +8,7 @@ function pagination (currentPage, nElements, nElementForPage, nShowedPages){
     var nextPage = currentPage+1
     var lastPage = Math.ceil( nElements/ nElementForPage)
 
-    if (lastPage < end){
+    if (lastPage <= end){
       end = lastPage
     }
 
@@ -23,8 +23,8 @@ function pagination (currentPage, nElements, nElementForPage, nShowedPages){
     }
 
     var pages= [];
-    for (var i=start; i < end; i++){
-      if (i != 0 && i < lastPage){ 
+    for (var i=start; i <= end; i++){
+      if (i != 0 && i <=  lastPage){ 
         pages.push(i)
       }
     }

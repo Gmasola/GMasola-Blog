@@ -50,13 +50,24 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(fileUpload());
+
 app.use(async function(req, res, next) {
-  res.locals.config = await Config.findOne()
+  var config = await Config.findOne()
+  req.config = config
   next();
 });
-app.use('/', indexRouter);
-app.use('/admin', adminRouter);
 
+
+app.use('/', indexRouter);
+
+app.use('/admin', (req, res, next) => {
+  if (req.isAuthenticated()) {
+      next()
+  } else {
+    res.redirect('/login');
+  }
+})
+app.use('/admin', adminRouter);
 
 
 

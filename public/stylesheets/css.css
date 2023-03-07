@@ -1,27 +1,57 @@
-* {
-    margin: 0;
-    padding: 0;
-  }
-  a{
+*{
+    margin: 0px;
+}
+
+a{
     color: blue;
     text-decoration:solid;
     font-weight: 600;
 }
 
+.title{
+font-size: 35px;
+padding-left: 20px;
+}
+
+.description{
+    font-size: 20px;
+    padding-left: 20px;
+    }
+ 
+    html {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+    }
+    body{
+        flex-basis: 80%;
+        height: 100%;
+        display: flex!important;
+        flex-direction: column!important;
+        justify-content: center !important;
+        background-image: linear-gradient(to right, rgb(89, 0, 255) , rgb(0, 153, 255));
+        font-family: "Segoe UI",Arial,sans-serif;
+    }
+/*body{
+  
+  display: flex !important; 
+  align-items: stretch !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+ } 
+
 
 body{
-    display: flex; 
-    background-image: linear-gradient(to right, rgb(89, 0, 255) , rgb(0, 153, 255));
+    margin: auto;
+   
     color: black;
     font-family: "Segoe UI",Arial,sans-serif;
-    margin-left: auto;
-    margin-right: auto;
+    /*max-width: 1120px;
+    
+}
+*/
 
-}
-#warper{
-    max-width: 1120px;
-    margin: 0 auto 0 auto;
-}
 
 header{
     display:flex;
@@ -75,15 +105,24 @@ nav ul li{
 
 
 /*Main*/
-#main-warp{
-display: flex;
-flex-direction: row;
-}
+ main  {
+    flex-basis: 80%;
+    background-color: rgba(255, 255, 255, 0.9); 
+    margin-top: 10px;
+    border-radius: 5px;
+    border-color: black;
+    border-style: solid;
+    border-width: 1px;
+    display: flex !important; 
+    align-content: stretch !important;
+    flex-direction: column !important;
+    
+ } 
 
 main ul li{
 list-style: none;
 }
-main{
+/*main{
     margin-top: 10px;
     border-radius: 5px;
     border-color: black;
@@ -93,7 +132,7 @@ main{
    background-color: rgba(255, 255, 255, 0.9); 
    padding-bottom: 25px;
     
-}
+}*/
 
 /*aside{
     margin: 10px auto auto 20px;
@@ -146,12 +185,75 @@ div[id*="best"]{
 
 }
 
-footer{
-    height: 100px;
-}
 
 #newpost{
 
     height: 50px;
     width: 40px;
+}
+
+.admNav{
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+
+}
+.admNav li{
+    padding-right: 15px;
+}
+
+.posts_list{
+display: flex;
+flex-direction: column;
+padding-left: 20px;
+}
+
+.posts_admin_menù{
+    display: flex;
+    justify-content: space-between
+    
+}
+.admPostTitle{
+flex-basis: 40%;
+}
+.admPostDate{
+    flex-basis: 20%;
+}
+.admPostCategory{
+    flex-basis: 20%;
+}
+
+.admPostedit{
+    flex-basis: 10%;
+}
+.admPostDelete{
+    flex-basis: 10%;
+}
+.logout a{
+color: red;
+}
+
+
+#adminUsers{
+    display: flex;
+    flex-direction: row;
+}
+#adminUsers form{
+    flex-basis: 20%;
+    margin: 20px;
+}
+
+#userList{
+flex-basis: 80%;
+display: flex;
+flex-direction: column;
+}
+
+.useritem{
+flex-basis: 30%;
+display: flex;
+justify-content: space-around ;
+}
+footer{
+    height: 10%;
 }

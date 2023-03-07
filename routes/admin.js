@@ -1,47 +1,36 @@
 var express = require('express');
 var router = express.Router();
 
-
-const passport = require('passport');
 const genPassword = require('../lib/passwordUtils').genPassword;
 const connection = require('../config/database');
 const User = connection.models.User;
 const Config = connection.models.Config;
 const Post = connection.models.Post;
-const isAuth = require('./authMiddleware').isAuth;
-const isAdmin = require('./authMiddleware').isAdmin;
 const pag = require('../helpers/helpers').pagination;
-
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    res.redirect('/login');
+    res.redirect('/admin/posts');
 });
 
-//POSTS
+
 router.get('/posts', async function (req, res, next) {
 
     var posts = await Post.find({})
-    var general = res.locals.config.general
-    var categories = res.locals.config.categories
-    var page = { general, categories, posts, } //  Destructuring assignment
-    //res.send(page)
-
+    var page = { general: req.config.general, categories: req.config.categories, posts, } //  Destructuring assignment
     res.render('admin/posts', page);
 
 });
 
 router.get('/posts/new', async function (req, res, next) {
-    var page = res.locals.config
+    var page = { general: req.config.general, categories: req.config.categories}
     res.render('admin/newPost', page);
 
 });
 
 router.get('/posts/edit/:id', async function (req, res, next) {
-    var general = res.locals.config.general
-    var categories = res.locals.config.categories
-    var post = await Post.findOne({ _id: req.params.id })
-    var page = { general, categories, post, }
+      var post = await Post.findOne({ _id: req.params.id })
+    var page = {  general: req.config.general, categories: req.config.categories, post, }
     res.render('admin/editPost', page);
 
 });
@@ -49,7 +38,6 @@ router.get('/posts/edit/:id', async function (req, res, next) {
 router.get('/posts/delete/:id', async (req, res, next) => {
     var post = req.params.id
     await Post.deleteOne({ _id: post })
-
     res.redirect('/admin/posts/');
 });
 
@@ -58,14 +46,16 @@ router.get('/posts/disable/:id', async (req, res, next) => {
        online: false
     }
     });
-
     res.redirect('/admin/posts/');
 });
 
+
+
+
+//POSTS
 router.post('/posts/new', async (req, res, next) => {
 
     await Post.create({
-
         title: req.body.title,
         text: req.body.body,
         data: (new Date()).toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit', year: '2-digit' }),
@@ -84,9 +74,6 @@ router.post('/posts/edit/:id', async (req, res, next) => {
     else{
         var online = false
     }
-    let timestamp = new Date();
-let formattedDate = timestamp.toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit', year: '2-digit' });
-
     await Post.findOneAndUpdate({ _id: req.params.id }, {
         title: req.body.title,
         text: req.body.body,
@@ -99,14 +86,10 @@ let formattedDate = timestamp.toLocaleDateString('it-IT', { day: '2-digit', mont
 });
 
 
-
-
-
-
 //SETTING SECTION
 
 router.get('/settings', async function (req, res, next) {
-    res.render('admin/settings', res.locals.config);
+    res.render('admin/settings', { general: req.config.general, categories: req.config.categories});
 });
 
 router.post('/settings', async (req, res, next) => {
@@ -136,9 +119,7 @@ router.post('/settings', async (req, res, next) => {
 
 router.get('/users', async function (req, res, next) {
     var users = await User.find({})
-    var general = res.locals.config.general
-    var categories = res.locals.config.categories
-    var page = { general, categories, users, } //  Destructuring assignment
+    var page = { general: req.config.general, categories: req.config.categories, users, } //  Destructuring assignment
     //res.send(page)
 
     res.render('admin/users', page);
@@ -156,7 +137,8 @@ router.post('/newuser', (req, res, next) => {
         username: req.body.uname,
         hash: hash,
         salt: salt,
-        admin: true
+        email:req.body.email,
+        userType: req.body.userType
     });
 
     newUser.save()

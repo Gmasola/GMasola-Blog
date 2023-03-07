@@ -24,7 +24,9 @@ const connection = mongoose.createConnection(conn, {
 const UserSchema = new mongoose.Schema({
     username: String,
     hash: String,
-    salt: String
+    salt: String,
+    email:String,
+    userType:String
 });
 
 const postSchema = new mongoose.Schema({

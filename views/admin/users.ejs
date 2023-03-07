@@ -14,56 +14,61 @@
 
 
 <body>
-    <div id="warper">
-
-        <%- include('../template/header', {title: general.title, description: general.description, logo: general.logo }) %>
-  
-
-
-
-                <div id="user-bar"></div>
-                <div id="main-warp">
-                    <aside>
-                        <ul>
-                            <%- include('../template/admNav') %>
-                      
-                        </ul>
-                    </aside>
-
-                    <main>
-                        <h2>
-                            Users
-                        </h2>
-                         New user: 
-                         <form method="post" action="/admin/newuser">
-                            Enter Username:<br><input type="text" name="uname">
-                            <br>Enter Password:<br><input type="password" name="pw">
-                            <br><br><input type="submit" value="Submit"></form>
-                        <div div="post_list">
-                            <% users.forEach(function(user) { %>
-                                <li id= "posts_admin_menù">
-                                    <span><%= user.username %></span>
-                                    <span><%= user.email %> </span>
-                                    <a href="/admin/user/edit/<%= user._id %>"> <img src="/images/edit.png" alt="edit"></a>
-                                    <a href="/admin/user/delete/<%= user._id %>"> <img src="/images/cancel.png" alt="delete"></a>
-                                    <a href="/admin/user/disable/<%= user._id %>"> <img src="/images/disable.png" alt="delete"></a>  
-                                </li>
+        <%- include('../template/header', {title: general.title, description: general.description, logo: general.logo })
+            %>
+            
+                <main >
+                    <%- include('../template/admNav') %>
+                    <h2>
+                        Users
+                    </h2>
+                        <div id="adminUsers">
+                        <form method="post" action="/admin/newuser">
+                            New user:
+                             <br>Username:<br><input type="text" name="uname">
+                            <br> Password:<br><input type="password" name="pw">
+                            <br> Ripeti Password:<br><input type="password" name="pw2">
+                            <br> Email:<br><input type="email" name="email">
+                            <fieldset>
+                                <legend>Permessi:</legend>
+                                <div>
+                                  <input type="radio" id="admin" name="userType" value="admin" />
+                                  <label for="admin">Admin</label>
+                            
+                                  <input type="radio" id="writer" name="userType" value="writer" />
+                                  <label for="writer">Writer</label>
+                            
+                                  <input type="radio" id="user" name="userType" value="user" />
+                                  <label for="user">User</label>
+                                </div>
+                                <div>
+                                </div>
+                              </fieldset>
+                            
+                            <br><br><input type="submit" value="Inserisci">
+                        </form>
+                    <ul id="userList">
+                        <% users.forEach(function(user) { %>
+                            <li class="useritem">
+                                <span>
+                                    <%= user.username %>
+                                </span>
+                                <span>
+                                    <%= user.email %>
+                                </span>
+                                <a href="/admin/user/edit/<%= user._id %>"> <img src="/images/edit.png"
+                                        alt="edit"></a>
+                                <a href="/admin/user/delete/<%= user._id %>"> <img src="/images/cancel.png"
+                                        alt="delete"></a>
+                                <a href="/admin/user/disable/<%= user._id %>"> <img src="/images/disable.png"
+                                        alt="delete"></a>
+                            </li>
                             <% }); %>
-                        </div>
-                        
-                        
-                        
-                    </main>
+                     </ul>
 
-                    
-                </div>
-                <%- include('../template/footer') %>
-    </div>
-
-
-
-
-
+                    </div>
+                </main>
+            <%- include('../template/footer') %>
 </body>
 
 </html>

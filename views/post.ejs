@@ -9,48 +9,32 @@
     <title>
         <%= general.title %>
     </title>
-
 </head>
 
-
 <body>
-    <div id="warper">
+    <%- include('template/header', {title: general.title, description: general.description, logo: general.logo }) %>
+        <%- include('template/nav', {categories: categories}) %>
+            <main>
+                <ul>
+                    <article class="post">
+                        <h3 class="post-title">
+                            <%= post.title %>
+                        </h3>
+                        <div class="post-info"> <span>
+                                <%= post.author %>
+                            </span> <span>
+                                <%= post.category %>
+                            </span><span>
+                                <%= post.data %>
+                            </span> </div>
+                        <div class="post-previw">
+                            <%- post.text %>
+                        </div>
+                    </article>
+                </ul>
 
-        <%- include('template/header', {title: general.title, description: general.description, logo: general.logo }) %>
-            <%- include('template/nav', {categories: categories}) %>
-
-
-
-                <div id="user-bar"></div>
-                <div id="main-warp">
-                    <main>
-                        <ul>
-                            <article class="post">
-                                <h3 class="post-title">
-                                    <%= post.title %>
-                                </h3>
-                                <div class="post-info"> <span>
-                                        <%= post.author %>
-                                    </span> <span>
-                                        <%= post.category %>
-                                    </span><span>
-                                        <%= post.data %>
-                                    </span> </div>
-                                <div class="post-previw">                                  
-                                    <%- post.text %>
-                                </div>                                          
-                            </article>
-                        </ul>
-                        
-                    </main>
-                </div>
-                <%- include('template/footer') %>
-    </div>
-
-
-
-
-
+            </main>
+            <%- include('template/footer') %>
 </body>
 
 </html>
