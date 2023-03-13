@@ -11,8 +11,12 @@
                 <%= post.data %>
             </span> </div>
         <div class="post-previw">
-            <img src="<%= post.img %>" alt="">
-            <%- post.text %>
+            
+            <% if (post.text.length > 400) { %>
+                <%- post.text.slice(0,400) %>...
+            <%} else { %>
+                  <%- post.text %>  
+                <% } %>
         </div>
 
 
@@ -22,9 +26,6 @@
                <a href="/post/<%= post.id %>">continua</a> 
             </div>
             
-            <div>
-                commenti
-            </div>
         </div>
 
     </article>
