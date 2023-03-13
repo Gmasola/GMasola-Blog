@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node app.js"
+    "start": "node app"
   },
   "dependencies": {
     "connect-mongo": "^3.1.2",
