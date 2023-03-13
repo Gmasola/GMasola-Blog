@@ -30,7 +30,7 @@
                     </h2>
 
                     <form action="/admin/posts/edit/<%= post.id %>" method="post">
-                        <input type="text" name="title" id="title" value="<%= post.title %>">
+                        <input type="text" name="title" id="title" value="<%= post.title %>" maxlength="40" maxlength="4" size="40">
                         <textarea id="summernote" name="body"><%= post.text %></textarea>
                         <label for="categories"></label>
                         <select name="category" id="category">

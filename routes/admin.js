@@ -15,7 +15,6 @@ router.get('/', function (req, res, next) {
 
 
 router.get('/posts', async function (req, res, next) {
-
     var posts = await Post.find({})
     var page = { general: req.config.general, categories: req.config.categories, posts, } //  Destructuring assignment
     res.render('admin/posts', page);
@@ -23,7 +22,7 @@ router.get('/posts', async function (req, res, next) {
 });
 
 router.get('/posts/new', async function (req, res, next) {
-    var page = { general: req.config.general, categories: req.config.categories}
+    var page = { general: req.config.general, categories: req.config.categories, }
     res.render('admin/newPost', page);
 
 });
@@ -58,9 +57,11 @@ router.post('/posts/new', async (req, res, next) => {
     await Post.create({
         title: req.body.title,
         text: req.body.body,
+        category:req.body.category,
         data: (new Date()).toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit', year: '2-digit' }),
-        author: "tizio",
-        online: true
+        author: req.user.username,
+        online: true,
+        
     });
     res.redirect('/admin/posts');
 });
@@ -79,7 +80,7 @@ router.post('/posts/edit/:id', async (req, res, next) => {
         text: req.body.body,
         category:req.body.category,
         data: (new Date()).toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit', year: '2-digit' }),
-        author: "tizio",
+        author: req.user.username,
         online: online,
     });
     res.redirect('/admin/posts/');
@@ -89,7 +90,7 @@ router.post('/posts/edit/:id', async (req, res, next) => {
 //SETTING SECTION
 
 router.get('/settings', async function (req, res, next) {
-    res.render('admin/settings', { general: req.config.general, categories: req.config.categories});
+    res.render('admin/settings', { general: req.config.general, categories: req.config.categories, posts:req.config.posts });
 });
 
 router.post('/settings', async (req, res, next) => {
@@ -101,15 +102,24 @@ router.post('/settings', async (req, res, next) => {
             description: req.body.description
         },
         posts: {
-            postsForPage: req.body.PostForPage
-        },
-        categories: req.body.categories
+            postsForPage: req.body.postForPage
+        }
     });
 
     res.redirect('/admin/settings');
 });
 
+router.post('/add/category/', async function(req, res, next){
+    await Config.findOneAndUpdate({ _id: "616076ebc5f0079ec87453b1" }, 
+        { $push: { categories: [req.body.category] } })
+        res.redirect('/admin/settings')
+})
 
+router.get('/delete/category/:category', async function(req, res, next){
+    await Config.findOneAndUpdate({ _id: "616076ebc5f0079ec87453b1" }, 
+    { $pull: { categories: req.params.category } })
+    res.redirect('/admin/settings')
+})
 
 //router.post('/admin/settings/addCategory', async (req, res, next) => {
   //  Config.findOneAndUpdate({}, { $push:{ categories: req.body.add}})
@@ -126,8 +136,8 @@ router.get('/users', async function (req, res, next) {
 
 });
 
+// USERS
 router.post('/newuser', (req, res, next) => {
-    console.log(req)
     const saltHash = genPassword(req.body.pw);
 
     const salt = saltHash.salt;
@@ -146,7 +156,39 @@ router.post('/newuser', (req, res, next) => {
             console.log(user);
         });
 
-    res.redirect('/login');
+    res.redirect('/admin/users');
 });
+
+
+router.post('/edituser/:id', async function(req, res, next){
+    const saltHash = genPassword(req.body.pw);
+
+    const salt = saltHash.salt;
+    const hash = saltHash.hash;
+
+    
+    await User.findOneAndUpdate({ _id: req.params.id }, 
+    {
+    username: req.body.uname,
+    hash: hash,
+    salt: salt,
+    email:req.body.email,
+    userType: req.body.userType
+     })
+    res.redirect('/admin/users')
+})
+router.get('/user/delete/:id', async (req, res, next) => {
+    await User.deleteOne({ _id: req.params.id })
+    res.redirect('/admin/users/');
+});
+
+router.get('/user/edit/:id', async (req, res, next) => {
+    var user = await User.findOne({ _id: req.params.id })
+    var users = await User.find({})
+    var page = { general: req.config.general, categories: req.config.categories, user, users } //  Destructuring assignment
+    console.log(page)
+    res.render('admin/editUser', page);
+});
+
 
 module.exports = router;

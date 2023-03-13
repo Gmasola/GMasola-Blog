@@ -32,6 +32,26 @@ router.get('/page/:page', async function (req, res, next) {
 
     res.render('page', page);
 });
+router.get('/category/:category/:page', async function (req, res, next) {
+    console.log(req.config.posts.postsForPage)
+    var currentPage = Math.max(0, req.params.page)
+    allPosts = await Post.find({ online: true, category: req.params.category })
+    postsInPage = allPosts.filter((post, index) => {
+        let postN = index + 1;
+        let max = currentPage * req.config.posts.postsForPage;
+        let min = max - req.config.posts.postsForPage + 1;
+        return (postN >= min && postN <= max );
+    })
+
+    var page = {
+        general: req.config.general,
+        categories: req.config.categories,
+        postsInPage,
+        pagination: pag(currentPage, allPosts.length, req.config.posts.postsForPage, 5) //currentPage, nElements, nElementForPage, nShowedPages
+    };
+
+    res.render('page', page);
+});
 
 router.get('/post/:id', async function (req, res, next) {
     var post = await Post.findOne({ _id: req.params.id })

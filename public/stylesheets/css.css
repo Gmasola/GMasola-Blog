@@ -74,7 +74,6 @@ nav{
     text-decoration:solid;
     font-weight: 600;
 }
-
 nav ul li{
     display: flex;
     align-items: center;
@@ -94,6 +93,11 @@ nav ul li{
 
 #nav-categories ul{
     display: none;
+    margin-top: 80px;
+}
+
+#nav-categories ul li a{
+    color: white;
 }
 #nav-categories:hover > ul{
     display: block;
@@ -113,6 +117,7 @@ nav ul li{
     border-color: black;
     border-style: solid;
     border-width: 1px;
+    padding: 1%;
     display: flex !important; 
     align-content: stretch !important;
     flex-direction: column !important;
@@ -167,6 +172,7 @@ div[class*="post"]{
 }
 
 .pagination{
+    margin-top: auto;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -254,6 +260,32 @@ flex-basis: 30%;
 display: flex;
 justify-content: space-around ;
 }
+
+#setting-warp{
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+#setting-warp form{
+    display: flex;
+    flex-direction: column;
+}
+#setting-warp form *{
+    margin-top: 4%;
+}
+#setting-warp form ul li{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.imgsmall{
+    height: 30px;
+    width: 30px;
+}
+
+
 footer{
     height: 10%;
 }

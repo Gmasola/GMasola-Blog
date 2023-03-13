@@ -27,18 +27,27 @@
                                     <div class="admPostDate">
                                         <%= post.data %>
                                     </div>
+                                    <div class="admPostDate">
+                                        <%= post.author %>
+                                    </div>
                                     <div class="admPostCategory">
                                         <%= post.category %>
                                     </div>
-                                    <div class="admPostedit"><a href="/admin/posts/edit/<%= post._id %>"> <img
-                                                src="/images/edit.png" alt="edit"></a></div>
-                                    <div class="admPostDelete"> <a href="/admin/posts/delete/<%= post._id %>"> <img
-                                                src="/images/cancel.png" alt="delete"></a> </div>
+                                    <div class="admPostedit">
+                                        <a href="/admin/posts/edit/<%= post._id %>"> 
+                                            <img src="/images/edit.png" alt="edit" class="imgsmall">
+                                        </a>
+                                    </div>
+                                    <div class="admPostDelete"> 
+                                    <a href="/admin/posts/delete/<%= post._id %>">
+                                         <img src="/images/cancel.png" alt="delete" class="imgsmall">
+                                        </a> 
+                                    </div>
                                     <% if(post.online===true){ %>
-                                        <img src="/images/online.png" alt="online">
+                                        <img src="/images/online.png" alt="online" class="imgsmall">
                                         <% } %>
                                             <% if(post.online===false){ %>
-                                                <img src="/images/offline.png" alt="offline">
+                                                <img src="/images/offline.png" alt="offline" class="imgsmall">
                                                 <% } %>
                                 </li>
                                 <% }); %>

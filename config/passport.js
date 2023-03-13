@@ -35,7 +35,7 @@ const strategy  = new LocalStrategy(customFields, verifyCallback);
 passport.use(strategy);
 
 passport.serializeUser((user, done) => {   //determines which data of the user object should be stored in the session. The result of the serializeUser method is attached to the session as req.session.passport.user = {}
-    done(null, user.id);
+    done(null, user.id,user.username);
 });
 
 passport.deserializeUser((userId, done) => {   //https://stackoverflow.com/questions/27637609/understanding-passport-serialize-deserialize

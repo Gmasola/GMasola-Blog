@@ -26,13 +26,27 @@
                 <main>
                         <%- include('../template/admNav') %>
                             <form action="/admin/posts/new/" method="post">
-                            <h3>Nuovo Post</h3>
-                             <input type="text" name="title" id="title" value="Titolo">
-                             <textarea id="summernote" name="body"></textarea>
-                            <input type="submit" value="Salva">
-                            
-                      
-                        </form>
+                        
+                        <input type="text" name="title" id="title" placeholder ="Titolo" maxlength="40" maxlength="4" size="40">
+                        <textarea id="summernote" name="body"></textarea>
+                        <label for="categories"></label>
+                        <select name="category" id="category">
+                            <% categories.forEach(function(category) { %>
+
+                                <option value="<%= category %>">
+                                    <%= category %>
+                                </option>
+                                <% }); %>
+                        </select>
+                        <select name="online" id="online">
+                            <option selected value="true">Published
+                            </option>
+
+                            <option value="false">Unpublished
+                            </option>
+                        </select>
+                        <input type="submit" value="Salva">
+</form>
                         
                         
                     </main>

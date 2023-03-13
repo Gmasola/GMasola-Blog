@@ -20,32 +20,44 @@
                 <main >
                     <%- include('../template/admNav') %>
                     <h2>
-                        Users
+                        Edit: "<%= user.username %>"
                     </h2>
                         <div id="adminUsers">
-                        <form method="post" action="/admin/newuser">
-                            New user:
-                             <br>Username:<br><input type="text" name="uname">
+                        <form method="post" action="/admin/edituser/<%=user.id %>">
+                           
+                             <br>Username:<br><input type="text" name="uname" value="<%= user.username %>">
                             <br> Password:<br><input type="password" name="pw">
                             <br> Ripeti Password:<br><input type="password" name="pw2">
-                            <br> Email:<br><input type="email" name="email">
+                            <br> Email:<br><input type="email" name="email" value="<%= user.email %>">
                             <fieldset>
                                 <legend>Permessi:</legend>
                                 <div>
-                                  <input type="radio" id="admin" name="userType" value="admin" />
+                                  <input type="radio" id="admin" name="userType" value="admin" 
+                                  <% if(user.userType==="admin"){ %>
+                                    checked="checked"
+                                    <% } %>
+                                     />
                                   <label for="admin">Admin</label>
                             
-                                  <input type="radio" id="writer" name="userType" value="writer" />
+                                  <input type="radio" id="writer" name="userType" value="writer" 
+                                  <% if(user.userType==="writer"){ %>
+                                    checked="checked"
+                                    <% } %>
+                                     />
                                   <label for="writer">Writer</label>
                             
-                                  <input type="radio" id="user" name="userType" value="user" />
+                                  <input type="radio" id="user" name="userType" value="user" 
+                                  <% if(user.userType==="user"){ %>
+                                    checked="checked"
+                                    <% } %>
+                                     />
                                   <label for="user">User</label>
                                 </div>
                                 <div>
                                 </div>
                               </fieldset>
                             
-                            <br><br><input type="submit" value="Inserisci">
+                            <br><br><input type="submit" value="Aggiorna">
                         </form>
                     <ul id="userList">
                         <% users.forEach(function(user) { %>
@@ -55,9 +67,6 @@
                                 </span>
                                 <span>
                                     <%= user.email %>
-                                </span>
-                                <span>
-                                    <%= user.userType %>
                                 </span>
                                 <a href="/admin/user/edit/<%= user._id %>"> <img src="/images/edit.png" class="imgsmall"
                                         alt="edit"></a>

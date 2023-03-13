@@ -1,6 +1,6 @@
 {
-  "name": "app",
-  "version": "0.0.0",
+  "name": "gmasola-blog",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
@@ -20,5 +20,30 @@
     "morgan": "~1.9.1",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0"
-  }
+  },
+  "engines": {
+    "node": "18.14.1"
+  },
+  "description": "my personal blog-portfolio",
+  "main": "app.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gmasola/Simple-blog.git"
+  },
+  "keywords": [
+    "portfolio",
+    "gmasola"
+  ],
+  "author": "gmasola",
+  "license": "MIT",
+  
+  "bugs": {
+    "url": "https://github.com/Gmasola/Simple-blog/issues"
+  },
+  "homepage": "https://github.com/Gmasola/Simple-blog#readme"
+  
 }
