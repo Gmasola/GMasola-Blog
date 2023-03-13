@@ -176,12 +176,7 @@ flex-basis: 20%;
 .post{
     margin: 10px 10px auto 10px
 }
-div[class*="post"]{
-    margin: 7px 5px 5px 5px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
+
 
 .post-details {
     display: flex;
