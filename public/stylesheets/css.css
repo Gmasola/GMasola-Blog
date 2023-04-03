@@ -195,6 +195,10 @@ div[class*="post"]{
 .post-info span{
     font-weight: bold;
 }
+.text{
+    display: flex; 
+    flex-direction: column;
+}
 /*
 .post-previw *{
     display: flex !important;
