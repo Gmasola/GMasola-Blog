@@ -13,10 +13,9 @@ router.get('/', function (req, res, next) {
 
 
 router.get('/page/:page', async function (req, res, next) {
-    console.log(req.config.posts.postsForPage)
     var currentPage = Math.max(0, req.params.page)
     allPosts = await Post.find({ online: true })
-    postsInPage = allPosts.filter((post, index) => {
+    postsInPage = allPosts.reverse().filter((post, index) => {
         let postN = index + 1;
         let max = currentPage * req.config.posts.postsForPage;
         let min = max - req.config.posts.postsForPage + 1;
@@ -33,7 +32,6 @@ router.get('/page/:page', async function (req, res, next) {
     res.render('page', page);
 });
 router.get('/category/:category/:page', async function (req, res, next) {
-    console.log(req.config.posts.postsForPage)
     var currentPage = Math.max(0, req.params.page)
     allPosts = await Post.find({ online: true, category: req.params.category })
     postsInPage = allPosts.filter((post, index) => {

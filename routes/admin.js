@@ -7,19 +7,6 @@ const User = connection.models.User;
 const Config = connection.models.Config;
 const Post = connection.models.Post;
 
-
-/*router.post('/posts/upload',upload.single('image') , (req, res)=>{
-    console.log(req.files)
-    res.send(' file caricato')
-    })*/
-
-    router.post('/posts/upload' , (req, res)=>{
-        console.log(req.body)
-        console.log(req.files)
-        console.log(req.file)
-        console.log(req.images)
-        res.send(' file caricato')
-    })
 /* GET home page. */
 router.get('/', function (req, res, next) {
     res.redirect('/admin/posts');
@@ -27,7 +14,7 @@ router.get('/', function (req, res, next) {
 
 
 router.get('/posts', async function (req, res, next) {
-    var posts = await Post.find({})
+    var posts = (await Post.find({})).reverse()
     var page = { general: req.config.general, categories: req.config.categories, posts, } //  Destructuring assignment
     res.render('admin/posts', page);
 
@@ -66,7 +53,6 @@ router.get('/posts/disable/:id', async (req, res, next) => {
 
 //POSTS
 router.post('/posts/new', async (req, res, next) => {
-    console.log(req.body)
     await Post.create({
         title: req.body.title,
         text: req.body.text,
@@ -83,8 +69,6 @@ router.post('/posts/new', async (req, res, next) => {
 
 router.post('/posts/edit/:id', async (req, res, next) => {
    
-    console.log(req.body)
-    console.log(req.params.id)
     await Post.findOneAndUpdate({ _id: req.params.id }, {
         title: req.body.title,
         text: req.body.text,
@@ -106,7 +90,6 @@ router.get('/settings', async function (req, res, next) {
 });
 
 router.post('/settings', async (req, res, next) => {
-  
     await Config.findOneAndUpdate({ _id: "616076ebc5f0079ec87453b1" }, {
         
         general: {
@@ -198,7 +181,6 @@ router.get('/user/edit/:id', async (req, res, next) => {
     var user = await User.findOne({ _id: req.params.id })
     var users = await User.find({})
     var page = { general: req.config.general, categories: req.config.categories, user, users } //  Destructuring assignment
-    console.log(page)
     res.render('admin/editUser', page);
 });
 
