@@ -1,7 +1,7 @@
 <li>
     <article class="post">
         <h3 class="post-title">
-            <%= post.title %>
+              <a href="/post/<%= post.id %>"><%= post.title %></a> 
         </h3>
         <div class="post-info"> <span>
                 <%= post.author %>
@@ -10,13 +10,14 @@
             </span><span>
                 <%= post.data %>
             </span> </div>
-        <div class="post-previw">
-            
-            <% if (post.text.length > 400) { %>
-                <%- post.text.slice(0,400) %>...
-            <%} else { %>
-                  <%- post.text %>  
-                <% } %>
+        <div class="previw">
+            <% if (post.text.length > 4000) { %>
+            <%- post.text.slice(0,4000) %>...
+        <%} else { %>
+              <%- post.text %>  
+            <% } %>
+       
+           
         </div>
 
 

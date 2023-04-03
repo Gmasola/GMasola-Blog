@@ -11,8 +11,7 @@ const session = require('express-session');
 var passport = require('passport');
 var crypto = require('crypto');
 const connection = require('./config/database');
-const fileUpload = require('express-fileupload');
-
+const bodyParser = require('body-parser');
 const Config = connection.models.Config;
 var indexRouter = require('./routes/index');
 var adminRouter = require('./routes/admin');
@@ -26,13 +25,19 @@ require('dotenv').config()
 
 var app = express();
 
-// view engine setup
+app.use(bodyParser.json({ limit: '10mb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
+
+//uploader
+
+app.use(bodyParser.json());
+
+ //view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -51,7 +56,7 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(fileUpload());
+
 
 app.use(async function(req, res, next) {
   var config = await Config.findOne()

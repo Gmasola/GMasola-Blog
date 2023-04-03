@@ -6,17 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/stylesheets/css.css">
+    <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/assets/css/suneditor.css" rel="stylesheet"> -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/assets/css/suneditor-contents.css" rel="stylesheet"> -->
+    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/suneditor.min.js"></script>
+    <!-- languages (Basic Language: English/en) -->
+    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/lang/ko.js"></script>
     <title>
    Gabriele Masola     <%= general.title %>
     </title>
-<!-- include libraries(jQuery, bootstrap) -->
-<script type="text/javascript" src="//code.jquery.com/jquery-3.6.0.min.js"></script>
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" />
-<script type="text/javascript" src="//cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 
-<!-- include summernote css/js-->
-<link href="/summernote/summernote-bs4.css" rel="stylesheet">
-<script src="/summernote/summernote-bs4.js"></script>
 </head>
 
 
@@ -25,10 +24,10 @@
             %>
                 <main>
                         <%- include('../template/admNav') %>
-                            <form action="/admin/posts/new/" method="post">
+                            <form action="javascript:postData()" method="post">
                         
                         <input type="text" name="title" id="title" placeholder ="Titolo" maxlength="40" maxlength="4" size="40">
-                        <textarea id="summernote" name="body"></textarea>
+                    <textarea name="text" id="text"></textarea>
                         <label for="categories"></label>
                         <select name="category" id="category">
                             <% categories.forEach(function(category) { %>
@@ -53,12 +52,143 @@
                 <%- include('../template/footer') %>
 </body>
 
-</html>
+  
+  
 <script>
-    $(document).ready(function() {
-        $('#summernote').summernote();
-      });
-
-
+   
+    /**
+  * ID : 'suneditor_sample'
+  * ClassName : 'sun-eidtor'
+  */
+  // ID or DOM object
+  const editor = SUNEDITOR.create((document.getElementById('text')),{
+      // All of the plugins are loaded in the "window.SUNEDITOR" object in dist/suneditor.min.js file
+      // Insert options
+      // Language global object (default: en)
+      lang: SUNEDITOR_LANG['en'],
+   
+      width : '100%',
+      //maxWidth : '600px',
+      minWidth : '400px',
+      height : 'auto',
       
+      "textTags": {
+          "bold": "b",
+          "underline": "u",
+          "italic": "i",
+          "strike": "s"
+      },
+      "mode": "classic",
+      "rtl": false,
+      "katex": "window.katex",
+      "font": [
+          "Arial",
+          "tahoma",
+          "Courier New,Courier"
+      ],
+      "fontSize": [
+          8,
+          10,
+          14,
+          18,
+          24,
+          36
+      ],
+      "colorList": [
+          [
+              "#ff0000",
+              "#ff5e00",
+              "#ffe400",
+              "#abf200"
+          ],
+          [
+              "#00d8ff",
+              "#0055ff",
+              "#6600ff",
+              "#ff00dd"
+          ]
+      ],
+      "imageFileInput": false,
+      "videoResizing": false,
+      "videoHeightShow": false,
+      "videoAlignShow": false,
+      "videoFileInput": false,
+      "videoUrlInput": false,
+      "videoRatioShow": false,
+      "audioUrlInput": false,
+      "tabDisable": false,
+      "buttonList": [
+          [
+              "undo",
+              "redo",
+              "font",
+              "fontSize",
+              "formatBlock",
+              "paragraphStyle",
+              "blockquote",
+              "bold",
+              "underline",
+              "italic",
+              "strike",
+              "subscript",
+              "superscript",
+              "fontColor",
+              "hiliteColor",
+              "textStyle",
+              "removeFormat",
+              "outdent",
+              "indent",
+              "align",
+              "horizontalRule",
+              "list",
+              "lineHeight",
+              "table",
+              "link",
+              "image",
+              "video",
+              "audio",
+              "math",
+              "imageGallery",
+              "fullScreen",
+              "showBlocks",
+              "codeView",
+              "preview",
+              "print",
+              "save",
+              "template"
+          ]
+      ],
+      "lang": SUNEDITOR_LANG.en,
+      "lang(In nodejs)": "en",
+      callBackSave: function (contents, isChanged) {
+          alert(contents);
+      }
+  });
+
+  
+
+    async function postData() {
+        var data ={
+        title: document.getElementById("title").value,
+        text: editor.getContents(),
+        category: document.getElementById("category").value,
+        online: document.getElementById("online").value
+    }
+  // Default options are marked with *
+  await fetch("/admin/posts/new/", {
+    method: "POST", // *GET, POST, PUT, DELETE, etc.
+    mode: "cors", // no-cors, *cors, same-origin
+    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: "same-origin", // include, *same-origin, omit
+    headers: {
+      "Content-Type": "application/json",
+       //'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    redirect: "follow", // manual, *follow, error
+    referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    body: JSON.stringify(data), // body data type must match "Content-Type" header
+  }).then(response=>window.location.replace(response.url));
+}
+
+
     </script>

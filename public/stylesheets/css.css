@@ -1,4 +1,4 @@
-
+/*
 html, body, div, span, applet, object, iframe, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
@@ -17,7 +17,7 @@ time, mark, audio, video {
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
-}
+}*/
 
 a{
     color: blue;
@@ -31,6 +31,10 @@ font-size: 35px;
 padding-left: 20px;
 }
 
+h3{
+    font-size: 25px;
+   margin-top: 30px
+}
 .description{
     font-size: 20px;
     padding-left: 20px;
@@ -45,9 +49,7 @@ padding-left: 20px;
     body{
         flex-basis: 80%;
         height: 100%;
-        display: flex!important;
-        flex-direction: column!important;
-        justify-content: center !important;
+       
         background-image: linear-gradient(to right, rgb(89, 0, 255) , rgb(0, 153, 255));
         font-family: "Segoe UI",Arial,sans-serif;
     }
@@ -193,7 +195,15 @@ div[class*="post"]{
 .post-info span{
     font-weight: bold;
 }
-
+/*
+.post-previw *{
+    display: flex !important;
+    flex-direction: column !important;
+}
+figure img  {
+  height: 300px;
+  width: 150px;
+}*/
 .pagination{
     margin-top: auto;
     display: flex;
@@ -208,12 +218,6 @@ div[class*="post"]{
      display: inline;
 
  }
-div[id*="best"]{
-    background-color: rgba(255, 255, 255, 0.9); 
-    margin: 5px 5px 15px 0px;
-
-}
-
 
 #newpost{
 

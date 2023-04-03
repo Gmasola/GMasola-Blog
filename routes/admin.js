@@ -6,8 +6,20 @@ const connection = require('../config/database');
 const User = connection.models.User;
 const Config = connection.models.Config;
 const Post = connection.models.Post;
-const pag = require('../helpers/helpers').pagination;
 
+
+/*router.post('/posts/upload',upload.single('image') , (req, res)=>{
+    console.log(req.files)
+    res.send(' file caricato')
+    })*/
+
+    router.post('/posts/upload' , (req, res)=>{
+        console.log(req.body)
+        console.log(req.files)
+        console.log(req.file)
+        console.log(req.images)
+        res.send(' file caricato')
+    })
 /* GET home page. */
 router.get('/', function (req, res, next) {
     res.redirect('/admin/posts');
@@ -22,6 +34,7 @@ router.get('/posts', async function (req, res, next) {
 });
 
 router.get('/posts/new', async function (req, res, next) {
+    
     var page = { general: req.config.general, categories: req.config.categories, }
     res.render('admin/newPost', page);
 
@@ -53,10 +66,10 @@ router.get('/posts/disable/:id', async (req, res, next) => {
 
 //POSTS
 router.post('/posts/new', async (req, res, next) => {
-
+    console.log(req.body)
     await Post.create({
         title: req.body.title,
-        text: req.body.body,
+        text: req.body.text,
         category:req.body.category,
         data: (new Date()).toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit', year: '2-digit' }),
         author: req.user.username,
@@ -69,22 +82,21 @@ router.post('/posts/new', async (req, res, next) => {
 
 
 router.post('/posts/edit/:id', async (req, res, next) => {
-    if(req.body.online === "Published"){
-        var online = true
-    }
-    else{
-        var online = false
-    }
+   
+    console.log(req.body)
+    console.log(req.params.id)
     await Post.findOneAndUpdate({ _id: req.params.id }, {
         title: req.body.title,
-        text: req.body.body,
+        text: req.body.text,
         category:req.body.category,
         data: (new Date()).toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit', year: '2-digit' }),
         author: req.user.username,
-        online: online,
+        online: req.body.online
     });
     res.redirect('/admin/posts/');
 });
+
+
 
 
 //SETTING SECTION
